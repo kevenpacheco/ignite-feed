@@ -2,9 +2,15 @@
   background: var(--gray-800);
   display: flex;
   justify-content: center;
+  gap: 1rem;
   padding: 1.25rem 0;
 }
 
 .header img {
   height: 2rem;
+}
+
+.header p {
+  font-size: 1.625rem;
+  font-weight: bold;
 }
