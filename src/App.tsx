@@ -5,7 +5,28 @@ import { Sidebar } from "./components/Sidebar";
 import styles from './App.module.css'
 import './global.css';
 
-const posts = [
+interface Author {
+  name: string;
+  role: string;
+  avatarUrl: string;
+}
+
+interface Content {
+  type: 'paragraph' | 'link';
+  content: string;
+}
+
+export interface PostI {
+  author: Author;
+  publishedAt: Date;
+  content: Content[];
+}
+
+interface Posts extends PostI {
+  id: number;
+}
+
+const posts: Posts[] = [
   {
     id: 1,
     author: {

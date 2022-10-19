@@ -6,25 +6,9 @@ import styles from './Post.module.css';
 
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
+import { PostI } from '../App';
 
-interface Author {
-  name: string;
-  role: string;
-  avatarUrl: string;
-}
-
-interface Content {
-  type: 'paragraph' | 'link';
-  content: string;
-}
-
-interface PostProps {
-  author: Author;
-  publishedAt: Date;
-  content: Content[];
-}
-
-export function Post({ author, publishedAt, content }: PostProps) {
+export function Post({ author, publishedAt, content }: PostI) {
   const [comments, setComments] = useState<string[]>([]);
   const [newCommentText, setNewCommentText] = useState('');
 
