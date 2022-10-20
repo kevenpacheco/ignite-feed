@@ -37,14 +37,20 @@
   place-items: center;
 }
 
-.loader path:nth-child(1) {
+.loader > div {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.loader svg path:nth-child(1) {
   fill: var(--green-300);
   -webkit-animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 1s both
     infinite;
   animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 1s both infinite;
 }
 
-.loader path:nth-child(2) {
+.loader svg path:nth-child(2) {
   fill: var(--green-300);
   -webkit-animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.8s
     both infinite;
@@ -52,10 +58,15 @@
     infinite;
 }
 
-.loader path:nth-child(3) {
+.loader svg path:nth-child(3) {
   fill: var(--green-300);
   -webkit-animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.9s
     both infinite;
   animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.9s both
     infinite;
+}
+
+.loader span {
+  font-size: 1.625rem;
+  font-weight: bold;
 }
