@@ -1,0 +1,61 @@
+@-webkit-keyframes animate-svg {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes animate-svg {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--gray-800);
+  display: grid;
+  place-items: center;
+}
+
+.loader path:nth-child(1) {
+  fill: var(--green-300);
+  -webkit-animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 1s both
+    infinite;
+  animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 1s both infinite;
+}
+
+.loader path:nth-child(2) {
+  fill: var(--green-300);
+  -webkit-animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.8s
+    both infinite;
+  animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.8s both
+    infinite;
+}
+
+.loader path:nth-child(3) {
+  fill: var(--green-300);
+  -webkit-animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.9s
+    both infinite;
+  animation: animate-svg 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.9s both
+    infinite;
+}

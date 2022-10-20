@@ -1,9 +1,12 @@
-import { Header } from "./components/Header";
-import { Post } from "./components/Post"
-import { Sidebar } from "./components/Sidebar";
+import { useEffect, useState } from "react";
 
 import styles from './App.module.css'
 import './global.css';
+
+import { Header } from "./components/Header";
+import { Post } from "./components/Post"
+import { Sidebar } from "./components/Sidebar";
+import { Loader } from "./components/Loader";
 
 interface Author {
   name: string;
@@ -58,6 +61,19 @@ const posts: Posts[] = [
 ];
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timeDelayInSeconds = 1000 * 3
+    const delay = setTimeout(() => {
+      setIsLoading(false)
+    }, timeDelayInSeconds);
+
+    return () => clearTimeout(delay);
+  }, [])
+
+  if (isLoading) return <Loader />;
+
   return (
     <div>
       <Header />
