@@ -4,9 +4,11 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 import styles from './Post.module.css';
 
+import { PostI } from '../App';
+
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
-import { PostI } from '../App';
+import { Button } from './Button';
 
 export function Post({ author, publishedAt, content }: PostI) {
   const [comments, setComments] = useState<string[]>([]);
@@ -96,9 +98,9 @@ export function Post({ author, publishedAt, content }: PostI) {
         />
 
         <footer>
-          <button type="submit" disabled={isNewCommentEmpty}>
+          <Button type="submit" disabled={isNewCommentEmpty}>
             Publicar
-          </button>
+          </Button>
         </footer>
       </form>
 
