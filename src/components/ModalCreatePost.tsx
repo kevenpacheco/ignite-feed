@@ -1,7 +1,7 @@
 import { useState } from "react";
 import uuid from "react-uuid";
 
-import styles from "./ModalCreatePost.module.css";
+import styles from "./styles/ModalCreatePost.module.css";
 
 import { ModalBase } from "./ModalBase";
 import { Textarea } from "./Textarea";

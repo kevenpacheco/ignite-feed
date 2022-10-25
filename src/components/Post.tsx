@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 
-import styles from "./Post.module.css";
+import styles from "./styles/Post.module.css";
 
 import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";

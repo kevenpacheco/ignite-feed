@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import primaryStyles from "./Button.module.css";
-import linkStyles from "./ButtonLink.module.css";
+import primaryStyles from "./styles/Button.module.css";
+import linkStyles from "./styles/ButtonLink.module.css";
 
 const VARIANTS_MAPPER = {
   primary: primaryStyles.button,

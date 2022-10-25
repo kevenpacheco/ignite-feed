@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode, useEffect } from "react";
-import styles from "./ModalBase.module.css";
+import styles from "./styles/ModalBase.module.css";
 
 interface ModalBasePropsType extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;

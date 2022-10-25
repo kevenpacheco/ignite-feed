@@ -1,4 +1,4 @@
-import styles from "./ModalDeleteComment.module.css";
+import styles from "./styles/ModalDeleteComment.module.css";
 import { ModalBase } from "./ModalBase";
 
 interface ModalDeleteCommentProps {
