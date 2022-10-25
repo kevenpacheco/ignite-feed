@@ -1,26 +1,11 @@
-.ModalDeleteComment {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: var(--overlay);
-  display: grid;
-  place-items: center;
-  padding: 1rem;
-  text-align: center;
-}
-
-.container {
-  background: var(--gray-800);
-  border-radius: 8px;
+.wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.5rem 4.5625rem 2rem;
+  padding: 0 4rem;
 }
 
-.container p {
+.wrapper p {
   margin: 1.5rem 0;
   max-width: 240px;
 }
@@ -56,8 +41,8 @@
 }
 
 @media (max-width: 460px) {
-  .container {
-    padding: 1.5rem 1.5rem 2rem;
+  .wrapper {
+    padding: 0;
   }
 
   .buttons {

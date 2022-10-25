@@ -4,13 +4,13 @@ import ptBR from "date-fns/locale/pt-BR";
 
 import styles from "./Post.module.css";
 
-import { PostI } from "../App";
-
 import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import { Button } from "./Button";
+import { Textarea } from "./Textarea";
+import { ContentType, PostType } from "./ModalCreatePost";
 
-export function Post({ author, publishedAt, content }: PostI) {
+export function Post({ author, publishedAt, content }: PostType) {
   const [comments, setComments] = useState<string[]>([]);
   const [newCommentText, setNewCommentText] = useState("");
 
@@ -71,23 +71,31 @@ export function Post({ author, publishedAt, content }: PostI) {
       </header>
 
       <div className={styles.content}>
-        {content.map((line) => {
-          if (line.type === "paragraph") {
-            return <p key={line.content}>{line.content}</p>;
-          } else if (line.type === "link") {
-            return (
-              <p key={line.content}>
-                <a href="">{line.content}</a>
-              </p>
-            );
-          }
+        {content.map((block: ContentType[]) => {
+          return (
+            <div key={JSON.stringify(block)}>
+              {block.map((line: ContentType) => {
+                if (line.type === "paragraph") {
+                  return <p key={line.content}>{line.content}</p>;
+                } else if (line.type === "link") {
+                  return (
+                    <p key={line.content}>
+                      <a href="">{line.content}</a>
+                    </p>
+                  );
+                }
+              })}
+            </div>
+          );
         })}
       </div>
 
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
-        <strong>Deixe seu feedback</strong>
+        <p>
+          <strong>Deixe seu feedback</strong>
+        </p>
 
-        <textarea
+        <Textarea
           placeholder="Deixe um comentário"
           name="comment"
           value={newCommentText}

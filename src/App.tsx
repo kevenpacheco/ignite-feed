@@ -1,76 +1,36 @@
 import { useEffect, useState } from "react";
 
-import styles from './App.module.css'
-import './global.css';
+import styles from "./App.module.css";
+import "./global.css";
 
 import { Header } from "./components/Header";
-import { Post } from "./components/Post"
+import { Post } from "./components/Post";
 import { Sidebar } from "./components/Sidebar";
 import { Loader } from "./components/Loader";
-
-interface Author {
-  name: string;
-  role: string;
-  avatarUrl: string;
-}
-
-interface Content {
-  type: 'paragraph' | 'link';
-  content: string;
-}
-
-export interface PostI {
-  author: Author;
-  publishedAt: Date;
-  content: Content[];
-}
-
-interface Posts extends PostI {
-  id: number;
-}
-
-const posts: Posts[] = [
-  {
-    id: 1,
-    author: {
-      avatarUrl: 'https://github.com/kevenpacheco.png',
-      name: 'Keven Pacheco',
-      role: 'Front-end Developer'
-    },
-    content: [
-      {type: 'paragraph', content: 'Fala galeraa 👋'},
-      {type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
-      {type: 'link', content: 'jane.design/doctorcare'},
-    ],
-    publishedAt: new Date('2022-05-03 20:00:00'),
-  },
-  {
-    id: 2,
-    author: {
-      avatarUrl: 'https://github.com/diego3g.png',
-      name: 'Diego Fernandes',
-      role: 'CTO @Rocketseat'
-    },
-    content: [
-      {type: 'paragraph', content: 'Fala galeraa 👋'},
-      {type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
-      {type: 'link', content: 'jane.design/doctorcare'},
-    ],
-    publishedAt: new Date('2022-05-10 20:00:00'),
-  },
-];
+import { Button } from "./components/Button";
+import { ModalCreatePost, PostType } from "./components/ModalCreatePost";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isCreatingPost, setIsCreatingPost] = useState(false);
+  const [posts, setPosts] = useState<PostType[]>([]);
+
+  function handleCreatePost(newPost: PostType) {
+    setPosts((oldState) => {
+      const newPosts = [...oldState];
+      newPosts.unshift(newPost)
+      return newPosts;
+    });
+  }
 
   useEffect(() => {
-    const timeDelayInSeconds = 1000 * 3
+    const timeDelayInSeconds = 1000 * 3;
     const delay = setTimeout(() => {
-      setIsLoading(false)
+      setIsLoading(false);
     }, timeDelayInSeconds);
 
     return () => clearTimeout(delay);
-  }, [])
+  }, []);
 
   if (isLoading) return <Loader />;
 
@@ -81,20 +41,24 @@ function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          {posts.map(post => {
-            return (
-              <Post
-                key={post.id}
-                author={post.author}
-                content={post.content}
-                publishedAt={post.publishedAt}
-              />
-            )
+          <Button onClick={() => setIsCreatingPost(true)}>
+            Criar publicação
+          </Button>
+
+          {posts.map((post) => {
+            return <Post key={post.id} {...post} />;
           })}
+
+          {isCreatingPost && (
+            <ModalCreatePost
+              onClose={() => setIsCreatingPost(false)}
+              onCreatePost={handleCreatePost}
+            />
+          )}
         </main>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

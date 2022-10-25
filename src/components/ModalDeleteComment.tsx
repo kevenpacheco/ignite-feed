@@ -1,4 +1,5 @@
 import styles from "./ModalDeleteComment.module.css";
+import { ModalBase } from "./ModalBase";
 
 interface ModalDeleteCommentProps {
   onClose: () => void;
@@ -10,8 +11,8 @@ export function ModalDeleteComment({
   onConfirmDeleteComment
 }: ModalDeleteCommentProps) {
   return (
-    <div className={styles.ModalDeleteComment}>
-      <div className={styles.container}>
+    <ModalBase>
+      <div className={styles.wrapper}>
         <h2>Excluir comentário</h2>
         <p>Você tem certeza que gostaria de excluir este comentário?</p>
         <div className={styles.buttons}>
@@ -19,6 +20,6 @@ export function ModalDeleteComment({
           <button onClick={onConfirmDeleteComment}>Sim, excluir</button>
         </div>
       </div>
-    </div>
+    </ModalBase>
   );
 }

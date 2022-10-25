@@ -1,13 +1,19 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import styles from "./Button.module.css";
+import primaryStyles from "./Button.module.css";
+import linkStyles from "./ButtonLink.module.css";
 
+const VARIANTS_MAPPER = {
+  primary: primaryStyles.button,
+  link: linkStyles.button
+}
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
+  variant?: keyof typeof VARIANTS_MAPPER;
 }
 
-export function Button({ children, ...props }: ButtonProps) {
+export function Button({ children, variant = 'primary', ...props }: ButtonProps) {
   return (
-    <button className={styles.button} {...props}>
+    <button className={VARIANTS_MAPPER[variant]} {...props}>
       {children}
     </button>
   );
