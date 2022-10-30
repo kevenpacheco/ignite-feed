@@ -18,7 +18,7 @@ export function ModalBase({ children, ...props }: ModalBasePropsType) {
   }, [])
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="modal-base">
       <div className={styles.container} {...props}>
         {children}
       </div>

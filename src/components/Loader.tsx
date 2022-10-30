@@ -2,7 +2,7 @@ import styles from "./styles/Loader.module.css";
 
 export function Loader() {
   return (
-    <div className={styles.loader}>
+    <div className={styles.loader} data-testid="loader">
       <div>
         <svg
           width="65"

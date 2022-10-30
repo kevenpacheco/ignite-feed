@@ -35,7 +35,7 @@ function App() {
   if (isLoading) return <Loader />;
 
   return (
-    <div>
+    <div data-testid="app">
       <Header />
 
       <div className={styles.wrapper}>

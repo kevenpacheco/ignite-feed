@@ -1,10 +1,9 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import primaryStyles from "./styles/Button.module.css";
-import linkStyles from "./styles/ButtonLink.module.css";
+import styles from "./styles/Button.module.css";
 
 const VARIANTS_MAPPER = {
-  primary: primaryStyles.button,
-  link: linkStyles.button
+  primary: styles.button,
+  link: styles.buttonLink
 }
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
