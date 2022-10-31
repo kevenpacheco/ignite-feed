@@ -1,12 +1,21 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { ContentType } from "../ModalCreatePost";
 import { Post } from "../Post";
 
+// vi.mock("date-fns", () => ({
+//   format() {
+//     return "25 de dezembro 2022";
+//   },
+//   formatDistanceToNow() {
+//     return "a menos de um minuto";
+//   },
+// }));
+
 const author = {
   name: "fake-name",
-  avatarUrl: "fake-avatar-url",
+avatarUrl: "fake-avatar-url",
   role: "fake",
 };
 
@@ -18,6 +27,14 @@ const content: ContentType[][] = [
 ];
 
 describe("<Post />", () => {
+  beforeEach(() => {
+    vi.setSystemTime(new Date())
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("should render Post with paragraph and link", () => {
     render(
       <Post

@@ -3,13 +3,17 @@ import { ThumbsUp, Trash } from "phosphor-react";
 import styles from "./styles/Comment.module.css";
 import { Avatar } from "./Avatar";
 import { ModalDeleteComment } from "./ModalDeleteComment";
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
 interface CommentProps {
+  id: string;
   content: string;
-  onDeleteComment: (comment: string) => void;
+  publishedAt: Date;
+  onDeleteComment: (commentId: string) => void;
 }
 
-export function Comment({ content, onDeleteComment }: CommentProps) {
+export function Comment({ id, content, publishedAt, onDeleteComment }: CommentProps) {
   const [isDeleteComment, setIsDeleteComment] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
@@ -18,7 +22,7 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
   }
 
   function handleConfirmDeleteComment() {
-    onDeleteComment(content);
+    onDeleteComment(id);
   }
 
   function handleCloseCommentModal() {
@@ -31,6 +35,17 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
     });
   }
 
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
+  const publishedDateFormatted = format(
+    publishedAt,
+    "d 'de' LLLL 'às' HH:mm'h'",
+    { locale: ptBR }
+  );
+
   return (
     <>
       <div className={styles.comment}>
@@ -42,10 +57,10 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
               <div className={styles.authorAndTime}>
                 <strong>Keven Pacheco</strong>
                 <time
-                  title="11 de maio às 11:13"
-                  dateTime="2022-05-11 08:13:30"
+                  title={publishedDateFormatted}
+                  dateTime={publishedAt.toISOString()}
                 >
-                  Cerca de 1h atrás
+                  {publishedDateRelativeToNow}
                 </time>
               </div>
 

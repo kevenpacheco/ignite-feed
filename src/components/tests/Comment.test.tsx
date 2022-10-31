@@ -7,8 +7,23 @@ describe("<Comment />", () => {
   const user = userEvent.setup();
   const content = "Conteudo de testes";
 
+  beforeEach(() => {
+    vi.setSystemTime(new Date());
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("should render default Comment", () => {
-    render(<Comment content={content} onDeleteComment={() => {}} />);
+    render(
+      <Comment
+        id="fake-id"
+        publishedAt={new Date()}
+        content={content}
+        onDeleteComment={() => {}}
+      />
+    );
 
     const sut = screen.getByText(content);
 
@@ -16,7 +31,14 @@ describe("<Comment />", () => {
   });
 
   it("should increment like counter", async () => {
-    render(<Comment content={content} onDeleteComment={() => {}} />);
+    render(
+      <Comment
+        id="fake-id"
+        publishedAt={new Date()}
+        content={content}
+        onDeleteComment={() => {}}
+      />
+    );
 
     const sut = screen.getByRole("button", { name: /aplaudir 0/i });
 
@@ -29,7 +51,14 @@ describe("<Comment />", () => {
 
   it("should called onDeleteComment prop function when confirm delete comment", async () => {
     const handleDelete = vi.fn();
-    render(<Comment content={content} onDeleteComment={handleDelete} />);
+    render(
+      <Comment
+        id="fake-id"
+        publishedAt={new Date()}
+        content={content}
+        onDeleteComment={handleDelete}
+      />
+    );
 
     await user.click(screen.getByTitle("Deletar comentário"));
     await user.click(screen.getByRole("button", { name: /sim, excluir/i }));
@@ -38,7 +67,14 @@ describe("<Comment />", () => {
   });
 
   it("should called onClose prop function when click close button", async () => {
-    render(<Comment content={content} onDeleteComment={() => {}} />);
+    render(
+      <Comment
+        id="fake-id"
+        publishedAt={new Date()}
+        content={content}
+        onDeleteComment={() => {}}
+      />
+    );
 
     await user.click(screen.getByTitle("Deletar comentário"));
     await user.click(screen.getByRole("button", { name: /cancelar/i }));

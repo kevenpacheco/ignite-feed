@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import uuid from "react-uuid";
 
 import styles from "./styles/Post.module.css";
 
@@ -10,9 +11,15 @@ import { Button } from "./Button";
 import { Textarea } from "./Textarea";
 import { ContentType, PostType } from "./ModalCreatePost";
 
+interface CommentType {
+  id: string;
+  content: string;
+  publishedAt: Date;
+}
+
 export function Post({ author, publishedAt, content }: PostType) {
-  const [comments, setComments] = useState<string[]>([]);
-  const [newCommentText, setNewCommentText] = useState("");
+  const [comments, setComments] = useState<CommentType[]>([]);
+  const [commentText, setCommentText] = useState("");
 
   const publishedDateFormatted = format(
     publishedAt,
@@ -27,7 +34,7 @@ export function Post({ author, publishedAt, content }: PostType) {
 
   function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("");
-    setNewCommentText(event.target.value);
+    setCommentText(event.target.value);
   }
 
   function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
@@ -36,19 +43,26 @@ export function Post({ author, publishedAt, content }: PostType) {
 
   function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
-    setComments([...comments, newCommentText]);
-    setNewCommentText("");
+
+    const newComment = {
+      id: uuid(),
+      content: commentText,
+      publishedAt: new Date(),
+    };
+
+    setComments((oldState) => [...oldState, newComment]);
+    setCommentText("");
   }
 
-  function deleteComment(commentToDelete: string) {
-    const commentsWithoutDeleteOne = comments.filter((comment) => {
-      return comment !== commentToDelete;
-    });
+  function deleteComment(commentId: string) {
+    const commentsWithoutDeleteOne = comments.filter(
+      ({ id }) => id !== commentId
+    );
 
     setComments(commentsWithoutDeleteOne);
   }
 
-  const isNewCommentEmpty = newCommentText.length === 0;
+  const isNewCommentEmpty = commentText.length === 0;
 
   return (
     <article className={styles.post}>
@@ -98,7 +112,7 @@ export function Post({ author, publishedAt, content }: PostType) {
         <Textarea
           placeholder="Deixe um comentário"
           name="comment"
-          value={newCommentText}
+          value={commentText}
           onChange={handleNewCommentChange}
           onInvalid={handleNewCommentInvalid}
           required
@@ -116,9 +130,9 @@ export function Post({ author, publishedAt, content }: PostType) {
           {comments.map((comment) => {
             return (
               <Comment
-                key={comment}
-                content={comment}
+                key={comment.id}
                 onDeleteComment={deleteComment}
+                {...comment}
               />
             );
           })}
