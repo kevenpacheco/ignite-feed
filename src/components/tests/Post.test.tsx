@@ -4,18 +4,9 @@ import { describe, it, expect, vi } from "vitest";
 import { ContentType } from "../ModalCreatePost";
 import { Post } from "../Post";
 
-// vi.mock("date-fns", () => ({
-//   format() {
-//     return "25 de dezembro 2022";
-//   },
-//   formatDistanceToNow() {
-//     return "a menos de um minuto";
-//   },
-// }));
-
 const author = {
   name: "fake-name",
-avatarUrl: "fake-avatar-url",
+  avatarUrl: "fake-avatar-url",
   role: "fake",
 };
 
@@ -28,7 +19,7 @@ const content: ContentType[][] = [
 
 describe("<Post />", () => {
   beforeEach(() => {
-    vi.setSystemTime(new Date())
+    vi.setSystemTime(new Date());
   });
 
   afterEach(() => {
@@ -47,6 +38,38 @@ describe("<Post />", () => {
 
     expect(screen.getByText("fake-paragraph-content")).toBeInTheDocument();
     expect(screen.getByText("fake-link-content")).toBeInTheDocument();
+  });
+
+  it("should render Post with multiples paragraph and links", () => {
+    const fakePostTextWithMultiplesParagraphAndLinks: ContentType[][] = [
+      [
+        { type: "paragraph", content: "fake paragraph 1 in block 1" },
+        { type: "paragraph", content: "fake paragraph 2 in block 1" },
+        { type: "link", content: "fake link 1 in block 1" },
+      ],
+      [
+        { type: "paragraph", content: "fake paragraph 1 in block 2" },
+        { type: "paragraph", content: "fake paragraph 2 in block 2" },
+        { type: "link", content: "fake link 1 in block 2" },
+      ],
+    ];
+
+    render(
+      <Post
+        id="fake-id"
+        author={author}
+        content={fakePostTextWithMultiplesParagraphAndLinks}
+        publishedAt={new Date()}
+      />
+    );
+
+    expect(screen.getByText("fake paragraph 1 in block 1")).toBeInTheDocument();
+    expect(screen.getByText("fake paragraph 2 in block 1")).toBeInTheDocument();
+    expect(screen.getByText("fake link 1 in block 1")).toBeInTheDocument();
+
+    expect(screen.getByText("fake paragraph 1 in block 2")).toBeInTheDocument();
+    expect(screen.getByText("fake paragraph 2 in block 2")).toBeInTheDocument();
+    expect(screen.getByText("fake link 1 in block 2")).toBeInTheDocument();
   });
 
   it("should create comment", async () => {
