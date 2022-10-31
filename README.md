@@ -30,6 +30,8 @@ It is a system that makes it possible to create and delete comments on a post.
 - [React JS](https://reactjs.org/)
 - [CSS Modules](https://github.com/css-modules/css-modules)
 - [Vite](https://vitejs.dev/)
+- [Vitest](https://vitest.dev/)
+- [React Testing Library](https://testing-library.com/)
 
 ### What I learned
 
@@ -47,6 +49,14 @@ Among the various concepts learned are:
 - How to include JS variables inside HTML;
 - What is the key property for within an iteration and why it must be unique and not change;
 - Typescript Basics
+
+### Going beyond
+
+To go a little further, I made some improvements to the project, such as:
+
+- I created a small loading component using an animated svg, simulating the loading of information;
+- I created a button that opens a modal, to create new posts;
+- Added unit tests, using Vitest and React Testing Library.
 
 ## Author
 
